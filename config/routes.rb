@@ -1,7 +1,12 @@
 IS376Api::Application.routes.draw do
-  devise_for :users
 
-  resources :users, except: [:new, :edit]
+	namespace :api do
+		namespace :v1 do
+			devise_for :users
+			resources :users, except: [:new, :edit]
+			resources :tokens, only: [:create, :destroy]
+		end
+	end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
