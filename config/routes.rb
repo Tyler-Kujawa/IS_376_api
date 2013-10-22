@@ -2,9 +2,8 @@ IS376Api::Application.routes.draw do
 
 	namespace :api do
 		namespace :v1 do
-			devise_for :users
+			devise_for :user, :token_authentication_key => 'authentication_key', controllers: {sessions: "api::v1::sessions", registrations: "api::v1::registrations"}
 			resources :users, except: [:new, :edit]
-			resources :tokens, only: [:create, :destroy]
 		end
 	end
 
