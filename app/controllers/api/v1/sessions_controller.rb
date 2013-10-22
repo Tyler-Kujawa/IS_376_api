@@ -26,7 +26,7 @@ class Api::V1::SessionsController < Devise::SessionsController
 			@user.save
 			redirect_path = after_sign_out_path_for(resource_name)
 			signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
-			render :json => {:message=> "successfully logged out",:hmm => params[:authentication_token], :logged_in? => @user.authentication_token.nil? }
+			render :json => {:message=> "successfully logged out",:hmm => @user, :logged_in? => @user.authentication_token.nil? }
 		else
 			render :json => {:message => "Error: user could not be found"}
 		end
