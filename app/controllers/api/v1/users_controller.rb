@@ -1,22 +1,19 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  # GET /users
-  # GET /users.json
+	before_filter :validate_authentication_token!
+	
   def index
     @users = User.all
-
-    render json: @users
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
+		@friendships = @user.friendships
 
-    render json: @user
+		respond_to do |format|
+			format.json{ @user }
+		end
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(params[:user])
 
@@ -27,8 +24,6 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
     @user = User.find(params[:id])
 
@@ -39,8 +34,6 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
     @user.destroy
