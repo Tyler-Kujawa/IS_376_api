@@ -2,10 +2,12 @@ class Api::V1::ApiController < ApplicationController
 	helper_method :validate_authentication_token!, :current_user
 	
 	def validate_authentication_token!
-		@auth_token = params[:authentication_token]
+		@auth_token = params[:auth_token]
 		@user = User.find_by_authentication_token(@auth_token)
-		if @user
-			render :json => { :message => "You are not authorized to view this page", :user => @user }, :status => 401
+		if @auth_token
+			if @user
+				render :json => { :message => "You are not authorized to view this page", :user => @user }, :status => 401
+			end
 		end
 	end
 	
