@@ -16,6 +16,10 @@ group :production do
 	gem 'rails_12factor'
 end
 
+group :assets do
+	gem 'uglifier'
+end
+
 gem 'devise'
 
 gem 'rabl'
