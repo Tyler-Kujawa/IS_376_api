@@ -1,0 +1,85 @@
+.page-wrap{
+	height:inherit;
+	height:100%;
+  position:relative;
+}
+
+.header{
+	background-color:grey;
+	height:15%;
+}
+
+.header-element{
+	height:100px;
+	margin-top:20px;
+	padding:0px;
+}
+
+.logo-header-element{
+	height:80px;
+	margin:5px 0 5px 0;
+}
+
+#header-logo{
+	margin:20px 0 10px 0;
+	color:#FFF;
+}
+
+.sign-in-header-element{
+	height:80px;
+	margin:5px 0 5px 0;
+}
+
+.sign-in-header-element .login-label{
+	color:#FFF;
+	margin:0px;
+	padding:0px;
+}
+
+.sign-in-button-header{
+	margin:10px 0 10px 0;
+}
+
+.body-content{
+	margin:2.5px 0 2.5px 0;
+	height:65%;
+	background-color: #99CCFF;
+}
+
+.rc-details-container{
+	margin:35px 0 0 0;
+}
+
+.rc-details-container ul{
+	margin-top:30px;
+	list-style:none;
+}
+
+.rc-details-container ul li{
+	font-size:1.5em;
+	color:#555;
+	list-style:none;
+	padding-bottom:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.rc-details-container ul li span{
+	font-weight:bold;
+	color:#111;
+}
+
+
+.landing-picture{
+	margin:7.5px;
+	height:80%;
+}
+
+.footer{
+	position:relative;
+	height:20%;
+	margin:2.5px 0 0 0;
+	bottom:0;
+	width:100%; 
+	background:#EEE;
+}
