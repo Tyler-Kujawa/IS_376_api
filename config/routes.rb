@@ -7,14 +7,16 @@ IS376Api::Application.routes.draw do
 			resources :friendships
 		end
 	end
-
-	resources :users
+	
 	devise_scope :user do
 		devise_for :user
-		root :to => "devise/sessions#new"
+		#get "/" => "devise/sessions#new", :as => :user_session
+		match "log_out" => "devise/sessions#destroy", :as => "log_out"
+		match "sign_up" => "devise/registrations#new", :as => "sign_up"
+		
+		root to: "devise/sessions#new"
 	end
 	
-	get "sign_up" => "users#new", :as => "sign_up"
-	get "log_in" => "sessions#new", :as => "log_in"
-	get "log_out" => "sessions#destroy", :as => "log_out"
+	resources :users
+	
 end

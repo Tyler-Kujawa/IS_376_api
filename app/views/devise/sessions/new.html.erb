@@ -1,64 +1,56 @@
-<div class="container-fluid">
-<div class="page-wrap">
 
+<div id="wrap">
 	<!-======= HEADER ========->
-	<div class="row-fluid header">
-		<div class="span6 offset1 header-element">
-			<h1 id="header-logo">Relation Capital</h1>
-		</div>
-		
-		<!-======= LOGIN ========->
-		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-		<div class="span5 header-element">
-		
-			<div class="row-fluid">
-				<div class="span5 sign-in-header-element">
-					<p class="login-label">Login</p>
-					<p><%= f.text_field(:email) %></p>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="pull-left">
+					<a class="brand" href="#">Relation Capital</a>
 				</div>
-		
-				<div class="span5 sign-in-header-element">
-					<p class="login-label">password</p>
-					<p><%= f.password_field(:password) %></p>
-				</div>
-				<div class="span1 sign-in-header-element">
-					<br>
-					<p><%= f.submit(:enter, :class => "btn btn-inverse sign-in-button-header") %></p>
+				<div class="nav-collapse collapse">
+					<div class="navbar-form pull-right">
+						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+							<%= f.text_field(:email, class: "span2", placeholder: "email") %>
+							<%= f.password_field(:password, class: "span2", placeholder: "password") %>
+							<%= f.submit(:enter, class: "btn btn-inverse sign-in-button-header") %>
+						<% end %>
+          </div>
 				</div>
 			</div>
 		</div>
-		<!-======= END LOGIN ========->
-		<% end %>
 	</div>
 	
 	<!-======= END HEADER ========->
 	
 	<!-======= BODY ========->
-	
-	<div class="row-fluid body-content">
-		<div class="span4 offset1">
-			<div class="rc-details-container">
-				<h3>Start Building Your Relationship Capital <i>Today!</i></h3>
-				<ul>
-					<li><span>Point 1.</span> Some very engaging details about this point</li>
-					<li><span>Point 2.</span>Some very engaging details about this point</li>
-					<li><span>Point 3.</span>Some very engaging details about this point</li>
-				</ul>
+	<div class="container main-content">
+		<div class="row body-content hero-unit">
+			<div class="span5">
+				<div class="rc-details-container">
+					<h3>Start Building Your <span class="highlight-header">Relationship Capital</span> <i>Today!</i></h3>
+					<ul>
+						<li><%= image_tag("point.png", size: "30x30") %><span class="highlight">Point 1.</span> Some very engaging details about this point</li>
+						<li><%= image_tag("point.png", size: "30x30") %><span class="highlight">Point 2.</span>Some very engaging details about this point</li>
+						<li><%= image_tag("point.png", size: "30x30") %><span class="highlight">Point 3.</span>Some very engaging details about this point</li>
+					</ul>
+					<hr>
+					<%= link_to("Sign up", sign_up_path, class: "btn btn-success" ) %>
+				</div>
 			</div>
-		</div>
-		
-		<div class="offset2 span5" style="height:100%;">
-			<div class="well landing-picture">
-				<p><center>Picture of some sort</center></p>
+			<div class="offset1 span4">
+				<div class="landing-picture">
+					<p><center>Picture of some sort</center></p>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-======= END BODY ========->
 	
-	<!-======= FOOTER ========->
-	<div class="row-fluid footer">
-	<center><p>footer here</p></center>
+		<div id="push"></div>
 	</div>
-	<!-======= END FOOTER ========->
-</div>
-</div>
+	
+<%= render "layouts/footer" %>

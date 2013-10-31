@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+	before_filter :validate_user
 	
 	#landing page 
-	def home
-		#@user = User.new
+	def dashboard
+		@user = current_user
 		respond_to do |format|
 			format.html
 		end

@@ -1,85 +1,121 @@
-.page-wrap{
-	height:inherit;
-	height:100%;
-  position:relative;
+html,
+body {
+	height: 100%; 
+	background-image:url("background.png");
+	/* The html and body elements cannot have any padding or margin. */
 }
 
-.header{
-	background-color:grey;
-	height:15%;
+hr{
 }
 
-.header-element{
-	height:100px;
-	margin-top:20px;
-	padding:0px;
+.main-content{
+	margin-top: 80px;
 }
 
-.logo-header-element{
-	height:80px;
-	margin:5px 0 5px 0;
+.highlight-header{
+	color:#134500;
+	text-shadow: 1px 1px 1px #289300;
 }
 
-#header-logo{
-	margin:20px 0 10px 0;
-	color:#FFF;
+.highlight-header span a{
+	font-weight:lighter;
+	color:#aaa;
 }
 
-.sign-in-header-element{
-	height:80px;
-	margin:5px 0 5px 0;
+.highlight-header span a:hover,
+.highlight-header span a:focus{
+	font-weight:bold;
+	color:#777;
+	text-decoration:none;
 }
 
-.sign-in-header-element .login-label{
-	color:#FFF;
+.highlight-header span{
+	font-size:.8em;
+	color:#777;
+	text-shadow: 0 0 0 #289300;
+}
+
+.highlight{
+	color:#AC4200;
+	font-size:1.1em;
+	font-weight:bold;
+}
+
+.hero-unit{
+	background-color:rgba(238,238,238,0.6)
+}
+
+.well{
+	background-color:rgba(238,238,238,0.6)
+}
+
+.navbar, 
+.navbar-inverse, 
+.navbar-fixed-top{
 	margin:0px;
-	padding:0px;
-}
-
-.sign-in-button-header{
-	margin:10px 0 10px 0;
-}
-
-.body-content{
-	margin:2.5px 0 2.5px 0;
-	height:65%;
-	background-color: #99CCFF;
-}
-
-.rc-details-container{
-	margin:35px 0 0 0;
 }
 
 .rc-details-container ul{
-	margin-top:30px;
 	list-style:none;
 }
 
 .rc-details-container ul li{
-	font-size:1.5em;
-	color:#555;
-	list-style:none;
-	padding-bottom:10px;
-	margin-top:10px;
-	margin-bottom:10px;
+	font-size:.9em;
 }
 
-.rc-details-container ul li span{
-	font-weight:bold;
-	color:#111;
+.rc-details-container ul li img{
+	margin-right:10px;
 }
 
 
-.landing-picture{
-	margin:7.5px;
-	height:80%;
+.rcScoreElement{
+	text-align:center;
 }
 
-.footer{
-	position:relative;
-	height:20%;
-	margin:2.5px 0 0 0;
-	bottom:0;
-	width:100%; 
-	background:#EEE;
+#rcScore{
+	color:#AC4200;
+}
+
+.nav-image:hover{
+	box-shadow: 2px 2px 2px #333;
+}
+
+.nav-links-auth{
+	color:#EEE;
+	margin-top:15px;
+	text-shadow: 1px 1px 2px #333;
+}
+
+.navbar{
+	box-shadow: 5px 5px 5px #333;
+}
+
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	width:100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+	height: 60px;
+}
+#footer {
+	background-color: #333;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 }
