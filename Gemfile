@@ -20,7 +20,7 @@ group :assets do
 	gem 'uglifier'
 end
 
-gem 'devise'
+gem 'devise', '3.1.1'
 
 gem 'rabl'
 
