@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022233123) do
+ActiveRecord::Schema.define(:version => 20131110200322) do
+
+  create_table "commitments", :force => true do |t|
+    t.date     "deadline"
+    t.text     "description"
+    t.integer  "issuer_id"
+    t.string   "name"
+    t.integer  "reciever_id"
+    t.integer  "status"
+    t.boolean  "is_init"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
