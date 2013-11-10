@@ -1,0 +1,35 @@
+		<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="#">Relation Capital</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li><a href="#friends"><%= image_tag("home.png", class:"nav-image", size: "25x25") %></a></li>
+						<li><a href="#friends"><%= image_tag("commitment.png", class:"nav-image", size: "25x25") %></a></li>
+						<li><a href="#commitments"><%= image_tag("friend.png", class:"nav-image", size: "25x25") %></a></li>
+						<li><a href="#settings"><%= image_tag("setting.png", class:"nav-image", size: "25x25") %></a></li>
+					</ul>
+					<div class="navbar-form pull-right">
+						<<%= link_to("log out", log_out_path , class: "span1 nav-links-auth") %>
+						<%= link_to("Profile", user_path(current_user) , class: "span1 nav-links-auth") %>
+           </div>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Begin page content -->
+	<div class="container main-content" ng-controller="DashboardBody">
+		<%= render "layouts/main_dashboard" %>
+	</div>
+
+	<div id="push"></div>
+</div>
+
+<%= render "layouts/footer" %>

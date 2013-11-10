@@ -4,7 +4,25 @@ var relationCapitalApp = angular.module('relationCapitalApp', []);
 //set up controllers 
 
 //For the dashboard body:
-relationCapitalApp.controller('DashboardBody', function DashboardBody($scope) { });
+relationCapitalApp.controller('MainController', function MainController($scope) { });
 
-//For the graphs:
-relationCapitalApp.controller('Graph', function Graph($scope) { });
+relationCapitalApp.controller('FriendsController', function FriendsController($scope) { });
+
+//routes
+relationCapitalApp.config(['$routeProvider',
+	function($routeProvider){
+		$routeProvider.
+			when('/',
+			{
+				templateUrl: "<%= asset_path 'main.html' %>",
+				controller: "MainController"
+			}).
+			when('/friends',
+			{
+				templateUrl: "<%= asset_path 'friend.html' %>",
+				controller: "FriendsController"
+			}).
+			otherwise({
+				redirectTo:'/'
+			});
+}]);
