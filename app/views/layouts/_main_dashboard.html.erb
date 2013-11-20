@@ -10,18 +10,10 @@
 			</div>
 		</div>
 		
-		<div class="row">
-			<div class="well">
-				<h4 class="highlight-header">Ongoing Commitments</h4><hr>
-				<ol>
-				<% @commitments.each do |commitment| %>
-					<li><%= commitment.name %> 
-							<%= link_to(commitment, "view") %>
-					</li>
-				<% end %>
-				</ol>
-			</div>
-		</div>
+		<%= render "layouts/ongoing_commitments"%>
+		<%= render "layouts/ongoing_requests"%>
+	
+		
 	</div>
 	
 	<div class="span9" id="graph-body" ng-controller="Graph">

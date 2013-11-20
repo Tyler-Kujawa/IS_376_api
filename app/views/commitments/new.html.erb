@@ -1,0 +1,27 @@
+<div class="container">
+	<h1>Your new commitmet request</h1>
+	<%= form_for(@commitment) do |f| %>
+		<p>
+			Name:
+		</p>
+		<p>
+			<%= f.text_field :name %>
+		</p>
+		<p>
+			Description: 
+		</p>
+		<p>
+			<%= f.text_area :description %>
+		</p>
+		<p>
+			Send to:
+		</p>
+		<p>
+			<%= f.collection_select(:reciever_id, @friends, :id, :user_name) %>
+		</p>
+		<p>
+			<%= f.hidden_field(:issuer_id, value: current_user.id) %>
+			<%= f.submit("Send Request") %>
+		</p>
+	<% end %>
+</div>

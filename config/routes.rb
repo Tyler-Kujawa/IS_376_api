@@ -22,7 +22,10 @@ IS376Api::Application.routes.draw do
 	resources :commitments
 	resources :friendships
 	match "/friendships/delete/:id" => "friendships#destroy", as: "delete_friendship"
-	match "/friendships/update/:id" => "friendships#update", as: "update_friendship"
+	match "/friendships/update/:id" => "friendships#update", as: "update_friendship"	
+	
+	match "/commitments/delete/:id" => "commitments#destroy", as: "delete_commitment"
+	match "/commitments/update/:id" => "commitments#update", as: "update_commitment"
 	
 	
 end

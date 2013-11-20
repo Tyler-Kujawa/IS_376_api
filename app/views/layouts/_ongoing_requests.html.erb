@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="well">
+		<h4 class="highlight-header">Ongoing Requests</h4><hr>
+		<ol>
+			<% if @requests.empty? %>
+				<p>You have no ongoing requests.</p>
+			<% else %>
+				<% @requests.each do |commitment| %>
+					<li>
+						<b><%= link_to(commitment.name, commitment) %></b>
+						<div class="well">
+							<b>Description:</b> <%= commitment.description %><br>
+							<b>Status: <%= commitment.status_string %></b>
+							<% if commitment.status == 1 %>
+								<p><i>Pending</i></p>
+							<% elsif commitment.status == 2%>
+								<p><i>Commitment ongoing</i></p>
+							<% elsif commitment.status == 3%>
+									<p><i>Verify Commitment completion :</i></p>
+									<%= button_to("Verify", update_commitment_path(commitment), method: :put) %>
+							<% elsif commitment.status == 5%>
+								<p><i>This commitment has been Completed and approved!</i></p>
+							<% else %>
+							<% end %>
+						</div>
+					</li>
+				<% end %>
+			<% end %>
+		</ol>
+		<%= link_to("Create commitment", new_commitment_path) %>
+	</div>
+</div>

@@ -3,11 +3,11 @@ class Commitment < ActiveRecord::Base
 									:is_init, :issuer_id, :name, :reciever_id, 
 									:status
 									
-	belongs_to :user, class_name: "User", foreign_key: issuer_id
+	belongs_to :user, class_name: "User", foreign_key: :issuer_id
 	belongs_to :commitment_recipient, class_name: "User", primary_key: :id, foreign_key: :reciever_id 
 
 	#commitment status
-d	
+	
 	PENDING = 0
 	SENT = 1
 	ONGOING = 2
@@ -15,7 +15,37 @@ d
 	FULFILLED = 4
 	APPROVED = 5
 	DECLINED = 6
+
+	scope :request_initialized_by_issuer, where(is_init: true)
+	scope :request_not_initialized_by_issuer, where(is_init: false)
+	scope :recipient, lambda{|recipient_id| where(:reciever_id => recipient_id, is_init: true)}
+	scope :issuer, lambda{|issuer_id| where(issuer_id: issuer_id, is_init: true)}
+	scope :commitment_requests, where(:status => PENDING) 
+	scope :ongoing_commitments, where(:status => ONGOING)
+	scope :commitments_submitted_for_approval, where(:status => SUBMITTED)
+	scope :fulfilled_commitments, where(:status => FULFILLED)
+	scope :commitments_fulfilled_and_approved, where(:status => APPROVED)
 	
+	def status_string
+		if status == 0
+			"Pending"
+		elsif status == 1
+			"Sent"
+		elsif status == 2
+			"Ongoing"
+		elsif status == 3
+			"Submitted"
+		elsif status == 4
+			"Fulfilled"
+		elsif status == 5
+			"Verified by issuer"
+		elsif status == 6
+			"Declined"
+		else
+			"Invalid -- error"
+		end
+	end
+
 	
 	def accept_request
 		Commitment.accept_request(id)
@@ -49,7 +79,7 @@ d
 			inverse_commitment_id = id + 1
 			transaction do
 				update_one_side(id, ONGOING)
-				update_one_side(second_id, ONGOING)
+				update_one_side(inverse_commitment_id, ONGOING)
 			end
 		end
 		
@@ -57,15 +87,19 @@ d
 			inverse_commitment_id = id + 1
 			transaction do
 				update_one_side(id, SUBMITTED)
-				update_one_side(second_id, FULFILLED)
+				update_one_side(inverse_commitment_id, FULFILLED)
 			end
 		end
 		
 		def approve(id)
+			@commitment = Commitment.find(id)
 			inverse_commitment_id = id + 1
+			@recipient = User.find(@commitment.reciever_id)
 			transaction do
 				update_one_side(id, APPROVED)
-				update_one_side(second_id, APPROVED)
+				update_one_side(inverse_commitment_id, APPROVED)
+				@recipient.r_c_score += 1
+				@recipient.save
 			end
 		end
 		
@@ -73,7 +107,7 @@ d
 			inverse_commitment_id = id + 1
 			transaction do
 				update_one_side(id, DECLINED)
-				update_one_side(second_id, DECLINED)
+				update_one_side(inverse_commitment_id, DECLINED)
 			end
 		end
 		

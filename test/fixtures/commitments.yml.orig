@@ -1,0 +1,34 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+<<<<<<< HEAD
+  deadline: 2013-11-19
+=======
+  deadline: 2013-11-10
+>>>>>>> fc9859073db01ed02fc300706fe53e56341a50f5
+  description: MyText
+  issuer_id: 1
+  name: MyString
+  reciever_id: 1
+  status: 1
+  is_init: false
+<<<<<<< HEAD
+  difficulty_score: 1
+
+two:
+  deadline: 2013-11-19
+=======
+
+two:
+  deadline: 2013-11-10
+>>>>>>> fc9859073db01ed02fc300706fe53e56341a50f5
+  description: MyText
+  issuer_id: 1
+  name: MyString
+  reciever_id: 1
+  status: 1
+  is_init: false
+<<<<<<< HEAD
+  difficulty_score: 1
+=======
+>>>>>>> fc9859073db01ed02fc300706fe53e56341a50f5

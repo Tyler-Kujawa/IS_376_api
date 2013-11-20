@@ -1,0 +1,24 @@
+class CommitmentsController < ApplicationController
+  def new
+  end
+
+<<<<<<< HEAD
+  def create
+=======
+  def show
+>>>>>>> fc9859073db01ed02fc300706fe53e56341a50f5
+  end
+
+  def update
+  end
+
+<<<<<<< HEAD
+  def show
+  end
+
+  def destroy
+=======
+  def create
+>>>>>>> fc9859073db01ed02fc300706fe53e56341a50f5
+  end
+end
