@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+		@commitments = @user.commitments
 		
 		respond_to do |format|
 			format.html

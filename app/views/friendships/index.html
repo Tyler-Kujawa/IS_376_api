@@ -1,0 +1,16 @@
+<div class="container">
+	<h1>Your friends</h1>
+	<% @friendships.each do |friendship| %>
+		<%= friendship.friend.user_name %>
+		<%= friendship.friendship_status_string %>
+		<% if friendship.friendship_status == 0 %>
+			<%= button_to "Be Patient"%>
+		<% elsif friendship.friendship_status == 1 %>
+			<%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
+		<% elsif friendship.friendship_status == 2 %>
+			<%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete %>
+		<% end %>
+	<% end %>
+	<hr>
+	<%= link_to("Search friends", users_path) %>
+</div>

@@ -8,6 +8,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div id="wrap">
+	<% if user_signed_in? %>
+		<%= render "layouts/header"%>
+	<% end %>
 	<%= yield %>
+	
+	
+	<div id="push"></div>
+</div>
+
+<%= render "layouts/footer" %>
 </body>
 </html>

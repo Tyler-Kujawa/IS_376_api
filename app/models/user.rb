@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
 	#		as the user_id when searching the database for these records. 
 	has_many :friends, :through => :friendships, :primary_key => :friend_id
 	
+	## .commitments()
+	has_many :commitments, foreign_key: :issuer_id
+	
+	## .commitment_recipients()
+	has_many :commitment_recipients, through: :commitments, primary_key: :reciever_id
+	
 	#		Modules from devise for authentication.
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -23,7 +29,12 @@ class User < ActiveRecord::Base
 
 	#		Attributes belonging to the User model/object;
 	#		refer to database fields -- can be read and written to.
-  attr_accessible :email, :password, :password_confirmation, :authentication_token
+  attr_accessible :user_name, :first_name, :last_name, :r_c_score,
+									:email, :password, :password_confirmation, 
+									:authentication_token
+									
+	#		validations go here
+	
 
 	#		User.authenticate!(email, password)
 	#		takes an email and password (from form params[])

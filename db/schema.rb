@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022233123) do
+ActiveRecord::Schema.define(:version => 20131120005922) do
+
+  create_table "commitments", :force => true do |t|
+    t.date     "deadline"
+    t.text     "description"
+    t.integer  "issuer_id"
+    t.string   "name"
+    t.integer  "reciever_id"
+    t.integer  "status"
+    t.boolean  "is_init"
+    t.integer  "difficulty_score"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +48,10 @@ ActiveRecord::Schema.define(:version => 20131022233123) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "user_name"
+    t.integer  "r_c_score",              :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

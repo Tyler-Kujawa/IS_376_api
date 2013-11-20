@@ -17,6 +17,18 @@ class Friendship < ActiveRecord::Base
 	
 	before_save :is_lonely?
 	
+	def friendship_status_string
+		if friendship_status == 0
+			"Pending"
+		elsif friendship_status == 1
+			"Requested"
+		elsif friendship_status == 2
+			"Accepted"
+		else
+			"null"
+		end
+	end
+	
 	#prevents users from being friends with themselves
 	def is_lonely?
 		if self.friend_id == self.user_id

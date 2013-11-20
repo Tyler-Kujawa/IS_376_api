@@ -18,5 +18,10 @@ IS376Api::Application.routes.draw do
 	end
 	
 	resources :users
+	resources :commitments
+	resources :friendships
+	match "/friendships/delete/:id" => "friendships#destroy", as: "delete_friendship"
+	match "/friendships/update/:id" => "friendships#update", as: "update_friendship"
+	
 	
 end
