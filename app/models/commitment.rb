@@ -7,7 +7,7 @@ class Commitment < ActiveRecord::Base
 	belongs_to :commitment_recipient, class_name: "User", primary_key: :id, foreign_key: :reciever_id 
 
 	#commitment status
-	
+d	
 	PENDING = 0
 	SENT = 1
 	ONGOING = 2
