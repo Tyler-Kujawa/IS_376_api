@@ -5,7 +5,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 		if @user
 			@user.reset_authentication_token!
 			sign_in(@user)
-			render :json => { message: 'account created', new_user: @user }, status: 200 
+			render :json => { message: 'account created', new_user: @user, authentication_token: @user.authentication_token }, status: 200 
 		else
 			render :json => { message: 'account could not be created'}, :status => 404 
 		end
