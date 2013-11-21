@@ -11,8 +11,8 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 	def create
 		#Create a commitment request
 		#Clean up: move to Commitment model
-		@commitment = Commitment.send_commitment_request(Commitment.new(issuer_id: current_user.id, reciever_id: params[:recipient_id], name: params[:commitment_name], description: params[:commitment_description], deadline: Time.parse(params[:deadline])))
-		if @commitment
+		@commitment = Commitment.new(params[:commitment])
+		if Commitment.sent_commitment_request(@commitment)
 			render json: @commitment
 		end
   end
