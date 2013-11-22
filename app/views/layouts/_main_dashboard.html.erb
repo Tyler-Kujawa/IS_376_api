@@ -4,7 +4,8 @@
 		<div class="row">
 			<div class="well">
 				<h4 class="highlight-header text-center"><%= @user.user_name %>'s Dashboard</h4><hr>
-				<%= image_tag(avatar_url(@user)) %>
+				<center><%= image_tag(avatar_url(@user), size: "100x100") %></center>
+				<hr>
 				<p class="rcScoreElement">Relation Capital Score:</p>
 				<h2 id="rcScore" class="rcScoreElement"><%= @user.r_c_score %></h2>
 				<p class="rcScoreElement"><%= link_to("More Info", "#") %></p>
