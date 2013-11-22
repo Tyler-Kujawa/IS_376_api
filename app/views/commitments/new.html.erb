@@ -1,27 +1,30 @@
 <div class="container">
-	<h1>Your new commitmet request</h1>
-	<%= form_for(@commitment) do |f| %>
-		<p>
-			Name:
-		</p>
-		<p>
-			<%= f.text_field :name %>
-		</p>
-		<p>
-			Description: 
-		</p>
-		<p>
-			<%= f.text_area :description %>
-		</p>
-		<p>
-			Send to:
-		</p>
-		<p>
-			<%= f.collection_select(:reciever_id, @friends, :id, :user_name) %>
-		</p>
-		<p>
-			<%= f.hidden_field(:issuer_id, value: current_user.id) %>
-			<%= f.submit("Send Request") %>
-		</p>
-	<% end %>
+	<div class="well main-content">
+		<h3 class="text-center highlight-header">Your Commitment</h3>
+		<h5 class="text-center header-text-complement">Describe what you would like done</h5>
+		<hr>
+		<%= form_for(@commitment) do |f| %>
+			<table>
+				<tr>
+					<td><span class="highlight-text">Name:</span></td>
+					<td><span class="highlight-text">Send to:</span></td>
+				</tr>
+				<tr>
+					<td><%= f.text_field :name %></td>
+					<td>	<%= f.collection_select(:reciever_id, @friends, :id, :user_name) %></td>
+				</tr>
+				<tr>
+			</table>
+					<td><span class="highlight-text">Description:</span></td> 
+				</tr>
+				<tr>
+					<td><span class="highlight-text"><%= f.text_area :description, style: "width:98%; height:100px;"%></span><td>
+				</tr>
+				<tr>
+					<%= f.hidden_field(:issuer_id, value: current_user.id) %>
+					<td><%= f.submit("Send", class: "btn btn-success") %></td>
+				<tr>
+			</table>
+		<% end %>
+	</div>
 </div>

@@ -2,23 +2,28 @@
 	<div class="well">
 		<h4 class="highlight-header">Ongoing Commitments</h4><hr>
 		<ol>
-			<% @commitments.each do |commitment| %>
-			<li>
-				<b><%= link_to(commitment.name, commitment) %></b><hr>
-				<b>Description:</b> <%= commitment.description %><br>
-				<b>Status: <%= commitment.status_string %></b>
-				<% if commitment.status == 0 %>
-					<%= button_to("Accept Commitment", update_commitment_path(commitment), method: :put) %>
-				<% elsif commitment.status == 2%>
-					<%= button_to("Submit for Approval", update_commitment_path(commitment), method: :put) %>
-				<% elsif commitment.status == 3%>
-						<p><i>Submitted waiting for approval</i></p>
-				<% elsif commitment.status == 5%>
-					<p><i>Your commitment has been approved!</i></p>
-				<% else %>
-				<% end %>
-			</li>
+			<% if @requests.empty? %>
+				<p>You have no ongoing requests.</p>
+			<% else %>
+				<% @commitments.each do |commitment| %>
+				<li>
+					<b><%= link_to(commitment.name, commitment) %></b><hr>
+					<b>Description:</b> <%= commitment.description %><br>
+					<b>Status: <%= commitment.status_string %></b>
+					<% if commitment.status == 0 %>
+						<%= button_to("Accept Commitment", update_commitment_path(commitment), method: :put) %>
+					<% elsif commitment.status == 2%>
+						<%= button_to("Submit for Approval", update_commitment_path(commitment), method: :put) %>
+					<% elsif commitment.status == 3%>
+							<p><i>Submitted waiting for approval</i></p>
+					<% elsif commitment.status == 5%>
+						<p><i>Your commitment has been approved!</i></p>
+					<% else %>
+					<% end %>
+				</li>
+			<% end %>
 		<% end %>
 		</ol>
+		<hr>
 	</div>
 </div>

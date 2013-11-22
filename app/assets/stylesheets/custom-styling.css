@@ -12,14 +12,33 @@ hr{
 	margin-top: 80px;
 }
 
+.highlight-text{
+	text-shadow: 1px 1px 1px #888;
+	font-weight:bold;
+	font-size:1.1em;
+}
+
 .highlight-header{
 	color:#134500;
 	text-shadow: 1px 1px 1px #289300;
 }
 
+.highlight-header2{
+	text-shadow: 1px 1px 1px #888;	
+	font-weight:bold;
+	
+}
+
 .highlight-header span a{
 	font-weight:lighter;
 	color:#aaa;
+}
+
+.header-text-complement{
+	margin:0px;
+	padding:0px;
+	line-height:40%;
+	font-style:italic;
 }
 
 .highlight-header span a:hover,

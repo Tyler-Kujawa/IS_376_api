@@ -1,0 +1,47 @@
+<div class="container main-content">
+	<div class="row">
+		<div class="friend-list-body span3">
+			<h4 class="highlight-header2">Your friends</h4>
+			<hr>
+			<div class="well">
+			<% @friendships.each do |friendship| %>
+				<%= friendship.friend.email %>
+				<%= friendship.friend.user_name %>
+				<%= friendship.friendship_status_string %>
+				<% if friendship.friendship_status == 0 %>
+					<span class="highlight"><i>Be Patient</i></span>
+				<% elsif friendship.friendship_status == 1 %>
+					<%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
+				<% elsif friendship.friendship_status == 2 %>
+					<%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete %>
+				<% end %>
+			<% end %>
+			</div>
+			<hr>
+			<h4 class="highlight-header2">Pending Friend Requests</h4>
+			<hr>
+			<div class="well">
+				<i>You have no Pending Friend Requests</i>
+			</div>
+		</div>
+		
+		<div class="friend-search-body span8 offset1">
+			<div class="well">
+				<h3 class="highlight-header2">Search Users</h3>
+				<p>
+					<%= text_field_tag(:search_term) %> <%= button_to("search", users_path, class: "btn btn-small btn-inverse") %>
+				</p>
+				<hr>
+				<div class="user-search-results-body">
+					<h4>Results</h4>
+					<ul>
+						<li>search result</li>
+						<li>search result</li>
+						<li>search result</li>
+						<li>search result</li>
+					</ul>
+				</div>
+		</div>
+		</div>
+	</div>
+</div>
