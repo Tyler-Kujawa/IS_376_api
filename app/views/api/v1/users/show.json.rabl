@@ -4,7 +4,7 @@ attributes :authentication_token
 
 child @friendships => :friendships do 
 	#information about the users relationship with that friend
-	attributes :friendship_status
+	attributes :id, :friendship_status
 	#information about friend
 	@friendships.each do |friend|
 		child :friend => :friend do
@@ -22,7 +22,8 @@ child @friendships => :friendships do
 	#this is the link to accept this friendship
 	
 	child @requests => :requests do
-		attributes 	:name => :name,
+		attributes 	:id => :id,
+								:name => :name,
 								:deadline => :deadline,
 								:description => :description,
 								:difficulty_score => :difficulty_score,
