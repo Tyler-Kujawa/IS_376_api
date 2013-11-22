@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   def show
     @user = User.find(params[:id])
 		@friendships = @user.friendships
-		requests = Commitment.issuer(@user.id)
+		@requests = Commitment.issuer(@user.id)
 		@commitments = Commitment.recipient(@user.id)
 
 		respond_to do |format|
