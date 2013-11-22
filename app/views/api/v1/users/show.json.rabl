@@ -15,31 +15,30 @@ child @friendships => :friendships do
 									:last_name => :friend_last_name
 		end
 	end
-	
+end	
 	
 	
 	#for friends who have requested a friendship with this friend
 	#this is the link to accept this friendship
 	
-	child @requests => :requests do
-		attributes 	:id => :id,
-								:name => :name,
-								:deadline => :deadline,
-								:description => :description,
-								:difficulty_score => :difficulty_score,
-								:issuer_id => :issuer_id,
-								:reciever_id => :reciever_id,
-								:status => :status
-	end
-	
-	child @commitments => :commitments do
-		attributes 	:name => :name,
-								:deadline => :deadline,
-								:description => :description,
-								:difficulty_score => :difficulty_score,
-								:issuer_id => :issuer_id,
-								:reciever_id => :reciever_id,
-								:status => :status
-	end
-	
+child @requests => :requests do
+	attributes 	:id => :id,
+							:name => :name,
+							:deadline => :deadline,
+							:description => :description,
+							:difficulty_score => :difficulty_score,
+							:issuer_id => :issuer_id,
+							:reciever_id => :reciever_id,
+							:status => :status
 end
+
+child @commitments => :commitments do
+	attributes 	:name => :name,
+							:deadline => :deadline,
+							:description => :description,
+							:difficulty_score => :difficulty_score,
+							:issuer_id => :issuer_id,
+							:reciever_id => :reciever_id,
+							:status => :status
+end
+	
