@@ -12,7 +12,7 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 		#Create a commitment request
 		#Clean up: move to Commitment model
 		@commitment = Commitment.new(params[:commitment])
-		if Commitment.sent_commitment_request(@commitment)
+		if Commitment.send_commitment_request(@commitment)
 			render json: @commitment
 		end
   end
