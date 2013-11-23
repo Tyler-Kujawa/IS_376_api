@@ -20,14 +20,15 @@
 	
 	<div class="span9" id="graph-body" ng-controller="Graph">
 		<div class="well">
-			<h4 class="highlight-header">Stats
-				<span> | <a href="#">Commitments</a> |</span>
-				<span><a href="#">Fulfilled Commitments</a> |</span>
-				<span><a href="#">Requests</a> |</span>
+			<h4 class="highlight-header">Commitment Data
+                </br>
+                <span> | <a class="approvedCommit" href="#">Approved</a> |</span>
+                <span><a class="fulfilledCommit" href="#">Fulfilled</a> |</span>
+                <span><a class="requestedCommit" href="#">Requested</a> |</span>
 			</h4>
 			<hr>
 			
-			<div id="user-graph">
+			<div class="user-graph">
 			</div>
 			<hr>
 			<h4 class="highlight-header">Additional Info</h4>
@@ -35,47 +36,14 @@
 		</div>
 	</div>
     <!-- MOVE TO OWN LIBRARY SECTION -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
-
-        var userGraph = function(json, el, cStatus){
-            var c = json.user.commitments;
-            var monthArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            for (var i=0; i<c.length; i++) {
-                // IF: commitment was fulfilled
-                if (c[i].status = cStatus) {
-                    var monthDue = c[i].deadline.getMonth();
-                    monthArr[monthDue]++;
-                }
-            }
-            el.highcharts({
-                chart: {
-                    type: 'line'
-                },
-                title: {
-                    text: 'Commitments by Month'
-                },
-                xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                yAxis: {
-                    title: {
-                        text: 'Commitments'
-                    }
-                },
-                series: [{
-                    name: 'Completed',
-                    data: monthArr
-                }]
-            });
-        };
-
         $('document').ready(function(){
             var AUTH_TOKEN = "<%=@user.authentication_token%>";
             var uid = '' + <%= @user.id %>;
             $.getJSON('/api/v1/users/' + uid, {authentication_token:AUTH_TOKEN}, function(json) {
-                new userGraph(json, $('#user-graph'), 4);
+                new UserGraph(json, $('.user-graph'), 4);
+                new GraphBodyHandler(json, $('#graph-body'));
             });
         });
     </script>
