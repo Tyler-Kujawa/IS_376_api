@@ -7,7 +7,7 @@
 				<center><%= image_tag(avatar_url(@user), size: "100x100") %></center>
 				<hr>
 				<p class="rcScoreElement">Relation Capital Score:</p>
-				<h2 id="rcScore" class="rcScoreElement"><%= @user.r_c_score %></h2>
+				<h2 id="rcScore" class="rcScoreElement rcScoreHighlight"><%= @user.r_c_score %></h2>
 				<p class="rcScoreElement"><%= link_to("More Info", "#") %></p>
 			</div>
 		</div>
@@ -19,19 +19,51 @@
 	</div>
 	
 	<div class="span9" id="graph-body" ng-controller="Graph">
-		<div class="well">
-			<h4 class="highlight-header">Stats
-				<span> | <a href="#">Commitments</a> |</span>
-				<span><a href="#">Fulfilled Commitments</a> |</span>
-				<span><a href="#">Requests</a> |</span>
-			</h4>
-			<hr>
-			
-			<div class="user-graph">
+		<div class="row">
+		
+		<div class="span3">
+			<div class="well commitment-requests">
+				<h4 class="highlight-header text-center">Commitments</h4>
+				<hr>
+				<h3 class="rcScoreElement rcScoreHighlight"><%= @commitments.count %></h3>
+				<p class="text-center"><%= link_to("View Commitments", "#")%></p>
 			</div>
-			<hr>
-			<h4 class="highlight-header">Additional Info</h4>
-			<p>something something shome</p>
+		</div>
+		
+		<div class="span3">
+			<div class="well commitment-requests">
+			<h4 class="highlight-header text-center">Ongoing Requests</h4>
+				<hr>
+				<h3 class="rcScoreElement rcScoreHighlight"><%= @requests.count %></h3>
+				<p class="text-center"><%= link_to("View Requests", "#")%></p>
+			</div>
+		</div>
+		<div class="span3">
+			<div class="well commitment-requests">
+			<h4 class="highlight-header text-center">Rejected Requests</h4>
+				<hr>
+				<h3 class="rcScoreElement rcScoreHighlight"><%= @commitments.count %></h3>
+				<p class="text-center"><%= link_to("view", "#")%></p>
+			</div>
+		</div>
+		</div>
+		<div class="row">
+			<div class="span9">
+				<div class="well">
+					<h4 class="highlight-header">Stats
+						<span> | <a href="#">Commitments</a> |</span>
+						<span><a href="#">Fulfilled Commitments</a> |</span>
+						<span><a href="#">Requests</a> |</span>
+					</h4>
+					<hr>
+					
+					<div class="user-graph">
+					</div>
+					<hr>
+					<h4 class="highlight-header">Additional Info</h4>
+					<p>something something shome</p>
+				</div>
+			</div>
 		</div>
 	</div>
 	
