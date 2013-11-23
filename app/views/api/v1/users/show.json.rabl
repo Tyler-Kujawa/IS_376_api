@@ -33,7 +33,8 @@ child @requests => :requests do
 end
 
 child @commitments => :commitments do
-	attributes 	:name => :name,
+	attributes 	:id => :id,
+							:name => :name,
 							:deadline => :deadline,
 							:description => :description,
 							:difficulty_score => :difficulty_score,

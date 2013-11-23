@@ -22,6 +22,7 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 
   def update
 	 @commitment = Commitment.find(params[:id])
+	 
 		if @commitment.status == PENDING
 			if @commitment.accept_request
 				render json: @commitment
@@ -39,6 +40,16 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 			
 		else
 			render json: @commitment
+		end
+	end
+	
+	def destroy
+		@commitment = Commitment.find(params[:id])
+		
+		if @commitment.decline_commitment
+			render json: { message: "Commitment successfully declined" }
+		else
+			render json: { message: "Commitment could not be declined." }
 		end
 	end
 end

@@ -51,6 +51,10 @@ class Commitment < ActiveRecord::Base
 		Commitment.accept_request(id)
 	end
 	
+	def decline_commitment
+		Commitment.decline_commitment(id)
+	end
+	
 	def submit_for_approval
 		Commitment.submit_for_approval(id)
 	end
@@ -80,6 +84,14 @@ class Commitment < ActiveRecord::Base
 			transaction do
 				update_one_side(id, ONGOING)
 				update_one_side(inverse_commitment_id, ONGOING)
+			end
+		end
+		
+		def decline_commitment(id)
+		inverse_commitment_id = id + 1
+		transaction do
+				update_one_side(id, DECLINED)
+				update_one_side(inverse_commitment_id, DECLINED)
 			end
 		end
 		
