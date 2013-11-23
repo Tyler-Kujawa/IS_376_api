@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="well">
 				<h4 class="highlight-header text-center"><%= @user.user_name %>'s Dashboard</h4><hr>
-				<center><%= image_tag(avatar_url(@user), size: "100x100") %></center>
+				<center><%= image_tag(avatar_url(@user), size: "150x150") %></center>
 				<hr>
 				<p class="rcScoreElement">Relation Capital Score:</p>
 				<h2 id="rcScore" class="rcScoreElement"><%= @user.r_c_score %></h2>
@@ -27,12 +27,56 @@
 			</h4>
 			<hr>
 			
-			<div class="user-graph">
+			<div id="user-graph">
 			</div>
 			<hr>
 			<h4 class="highlight-header">Additional Info</h4>
 			<p>something something shome</p>
 		</div>
 	</div>
-	
+    <!-- MOVE TO OWN LIBRARY SECTION -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script>
+
+        var userGraph = function(json, el, cStatus){
+            var c = json.user.commitments;
+            var monthArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            for (var i=0; i<c.length; i++) {
+                // IF: commitment was fulfilled
+                if (c[i].status = cStatus) {
+                    var monthDue = c[i].deadline.getMonth();
+                    monthArr[monthDue]++;
+                }
+            }
+            el.highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Commitments by Month'
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Commitments'
+                    }
+                },
+                series: [{
+                    name: 'Completed',
+                    data: monthArr
+                }]
+            });
+        };
+
+        $('document').ready(function(){
+            var AUTH_TOKEN = "<%=@user.authentication_token%>";
+            var uid = '' + <%= @user.id %>;
+            $.getJSON('/api/v1/users/' + uid, {authentication_token:AUTH_TOKEN}, function(json) {
+                new userGraph(json, $('#user-graph'), 4);
+            });
+        });
+    </script>
 </div>

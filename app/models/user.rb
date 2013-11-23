@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
 				 :token_authenticatable
-
+  before_save :ensure_authentication_token
 	#		Attributes belonging to the User model/object;
 	#		refer to database fields -- can be read and written to.
   attr_accessible :user_name, :first_name, :last_name, :r_c_score,

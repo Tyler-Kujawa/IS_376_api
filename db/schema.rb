@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120005922) do
+ActiveRecord::Schema.define(:version => 20131122034908) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commitment_id"
+    t.integer  "user_id"
+    t.text     "text"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "commitments", :force => true do |t|
     t.date     "deadline"
@@ -35,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20131120005922) do
   end
 
   create_table "users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "email",                  :default => "", :null => false
@@ -48,8 +58,6 @@ ActiveRecord::Schema.define(:version => 20131120005922) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.string   "first_name"
-    t.string   "last_name"
     t.string   "user_name"
     t.integer  "r_c_score",              :default => 0
   end
