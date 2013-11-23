@@ -22,8 +22,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 		@requests = Commitment.issuer(@user.id)
 		@commitments = Commitment.recipient(@user.id)
-		
-		respond_to do |format|
+
+    respond_to do |format|
 			format.html
 		end
   end
