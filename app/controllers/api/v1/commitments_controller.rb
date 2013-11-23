@@ -46,10 +46,10 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 	def destroy
 		@commitment = Commitment.find(params[:id])
 		
-		if @commitment.destroy
-			render json: "Commitment successfully rejected"
+		if @commitment.decline_commitment
+			render json: "Commitment successfully declined"
 		else
-			render json: "Commitment could not be rejected."
+			render json: "Commitment could not be declined."
 		end
 	end
 end
