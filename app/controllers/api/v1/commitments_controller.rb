@@ -22,6 +22,7 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 
   def update
 	 @commitment = Commitment.find(params[:id])
+	 
 		if @commitment.status == PENDING
 			if @commitment.accept_request
 				render json: @commitment
