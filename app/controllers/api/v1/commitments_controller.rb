@@ -47,9 +47,9 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 		@commitment = Commitment.find(params[:id])
 		
 		if @commitment.decline_commitment
-			render json: "Commitment successfully declined"
+			render json: { message: "Commitment successfully declined" }
 		else
-			render json: "Commitment could not be declined."
+			render json: { message: "Commitment could not be declined." }
 		end
 	end
 end
