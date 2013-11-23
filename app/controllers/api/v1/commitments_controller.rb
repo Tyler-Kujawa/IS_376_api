@@ -42,4 +42,14 @@ class Api::V1::CommitmentsController < Api::V1::ApiController
 			render json: @commitment
 		end
 	end
+	
+	def destroy
+		@commitment = Commitment.find(params[:id])
+		
+		if @commitment.destroy
+			render json: "Commitment successfully rejected"
+		else
+			render json: "Commitment could not be rejected."
+		end
+	end
 end
