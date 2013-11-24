@@ -59,8 +59,8 @@
 
           <p>
             <%= form_tag 'friendships', :method => 'get' do %>
-                <%= text_field_tag :search, params[:search] %>
-                <%= submit_tag "Search", :name => nil %>
+                <%= text_field_tag :search, params[:search], class: 'search-text' %>
+                <%= submit_tag "Search", :name => nil, class: 'btn btn-primary' %>
             <% end %>
           </p>
           <hr>
@@ -77,9 +77,10 @@
                 <h4 class="highlight-header text-center">Results for "<%= @query %>"</h4>
             <% end %>
 
-            <ul class="media-list">
+            <ul class="media-list result-list">
               <% for user in @results %>
                   <% profUrl = "users/" + user.id.to_s %>
+                  <% relation = @friendships.where(:friend_id => user.id) %>
                   <li class="media">
                     <a class="pull-left" href="<%= profUrl %>">
                       <img class="media-object" src="<%= avatar_url(user) %>">
@@ -87,6 +88,18 @@
 
                     <div class="media-body">
                       <h4><a href="profUrl"><%= user.user_name %></a></h4>
+                      <h5>Score: <%= user.r_c_score %></h5>
+                      <div class="btn-area">
+                        <% if relation.blank? %>
+                            <button onclick="friendRequest(<%= user.id %>)" type="button" class="btn btn-primary">Add Friend</button>
+                        <% elsif relation.friendship_status_string == 'Accepted' %>
+                            <button type="button" class="btn btn-warning">Remove</button>
+                        <% elsif relation.friendship_status_string == 'Pending' %>
+                            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-user"></span>Accept</button>
+                        <% elsif relation.friendship_status_string == 'Requested' %>
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>Pending</button>
+                        <% end %>
+                      </div>
                     </div>
                   </li>
               <% end %>
@@ -97,3 +110,16 @@
     </div>
   </div>
 </div>
+<script>
+    var AUTH_TOKEN = "<%=current_user.authentication_token%>";
+    var friendRequest = function(uid) {
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/friendships",
+            data: { authentication_token: AUTH_TOKEN, requested_user_id: uid }
+        })
+                .done(function( msg ) {
+                    location.reload();
+                });
+    }
+</script>
