@@ -109,6 +109,14 @@ hr{
 	box-shadow: 5px 5px 5px #333;
 }
 
+#graph-body{
+    min-height: 840px;
+}
+
+#graph-body .well {
+    min-height: 840px;
+    height: 100%;
+}
 
 /* Wrapper for page content to push down footer */
 #wrap {

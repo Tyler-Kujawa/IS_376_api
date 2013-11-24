@@ -3,8 +3,9 @@ var UserGraph = function(json, el, cStatus){
     var monthArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (var i=0; i<c.length; i++) {
         // IF: commitment was fulfilled
+        var deadline = new Date(c[i].deadline);
         if (c[i].status = cStatus) {
-            var monthDue = c[i].deadline.getMonth();
+            var monthDue = deadline.getMonth();
             monthArr[monthDue]++;
         }
     }
