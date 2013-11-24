@@ -30,6 +30,10 @@ child @requests => :requests do
 							:issuer_id => :issuer_id,
 							:reciever_id => :reciever_id,
 							:status => :status
+							
+							child :survey => :survey do
+								attributes :id => :id
+							end
 end
 
 child @commitments => :commitments do

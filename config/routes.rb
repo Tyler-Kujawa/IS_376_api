@@ -6,6 +6,7 @@ IS376Api::Application.routes.draw do
 			resources :users, except: [:new, :edit]
 			resources :friendships
 			resources :commitments
+			resources :surveys
 		end
 	end
 	
@@ -21,11 +22,15 @@ IS376Api::Application.routes.draw do
 	resources :users
 	resources :commitments
 	resources :friendships
+	resources :surveys
+	
 	match "/friendships/delete/:id" => "friendships#destroy", as: "delete_friendship"
 	match "/friendships/update/:id" => "friendships#update", as: "update_friendship"	
 	
 	match "/commitments/delete/:id" => "commitments#destroy", as: "delete_commitment"
-	match "/commitments/update/:id" => "commitments#update", as: "update_commitment"
+	match "/commitments/update/:id" => "commitments#update", as: "update_commitment"	
+
+	match "/surveys/update/:id" => "surveys#update", as: "complete_survey"
 	
 	
 end
