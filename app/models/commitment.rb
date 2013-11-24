@@ -5,6 +5,8 @@ class Commitment < ActiveRecord::Base
 									
 	belongs_to :user, class_name: "User", foreign_key: :issuer_id
 	belongs_to :commitment_recipient, class_name: "User", primary_key: :id, foreign_key: :reciever_id 
+	
+	has_one :survey
 
 	#commitment status
 	
@@ -14,7 +16,8 @@ class Commitment < ActiveRecord::Base
 	SUBMITTED = 3
 	FULFILLED = 4
 	APPROVED = 5
-	DECLINED = 6
+	SURVEY_COMPLETED = 6
+	DECLINED = 7
 
 	scope :request_initialized_by_issuer, where(is_init: true)
 	scope :request_not_initialized_by_issuer, where(is_init: false)
@@ -40,6 +43,8 @@ class Commitment < ActiveRecord::Base
 		elsif status == 5
 			"Verified by issuer"
 		elsif status == 6
+			"Survey Completed"
+		elsif status == 7
 			"Declined"
 		else
 			"Invalid -- error"
@@ -61,6 +66,10 @@ class Commitment < ActiveRecord::Base
 	
 	def approve
 		Commitment.approve(id)
+	end
+	
+	def survey_completed
+		Commitment.survey_completed(id)
 	end
 	
 	class << self
@@ -107,11 +116,29 @@ class Commitment < ActiveRecord::Base
 			@commitment = Commitment.find(id)
 			inverse_commitment_id = id + 1
 			@recipient = User.find(@commitment.reciever_id)
+			@issuer = User.find(@commitment.issuer_id)
+			
+			#create a survey to be fulfilled
+			@survey = Survey.new(user_id: @issuer.id, commitment_id: @commitment.id)
+			
+			#send an email to the issuer to remind them their survey has been completed
+			UserMailer.survey_email(@issuer).deliver
+		
+			
 			transaction do
 				update_one_side(id, APPROVED)
 				update_one_side(inverse_commitment_id, APPROVED)
 				@recipient.r_c_score += 1
 				@recipient.save
+				@survey.save
+			end
+		end
+		
+		def survey_completed(id)
+			inverse_commitment_id = id + 1
+			transaction do
+				update_one_side(id, SURVEY_COMPLETED)
+				update_one_side(inverse_commitment_id, SURVEY_COMPLETED)
 			end
 		end
 		

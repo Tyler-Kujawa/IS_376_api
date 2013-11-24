@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  question_1_rating: 
+  question_2_rating: 
+  question_3_rating: 
+  commitment_id: 
+  user_id: 
+
+two:
+  question_1_rating: 
+  question_2_rating: 
+  question_3_rating: 
+  commitment_id: 
+  user_id: 

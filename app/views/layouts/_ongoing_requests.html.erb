@@ -19,7 +19,10 @@
                       <p><i>Verify Commitment completion :</i></p>
                       <%= button_to("Verify", update_commitment_path(commitment), method: :put) %>
                   <% elsif commitment.status == 5%>
-                      <p><i>This commitment has been Completed and approved!</i></p>
+                      <p><i>This commitment has been Completed and approved!</i></p>                  
+                      <p><i><%= button_to("Complete Survey", complete_survey_path(commitment.survey), method: :put, class: "btn btn-success") %></i></p>                  
+									<% elsif commitment.status == 6%>
+                      <p><i>This commitment has been Completed and approved! Survey Compleete</i></p>
                   <% else %>
                   <% end %>
                 </div>
