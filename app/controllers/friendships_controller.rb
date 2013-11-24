@@ -5,6 +5,10 @@ class FriendshipsController < ApplicationController
 		@friends = current_user.friends
     @query = params[:search]
     @results = User.search(@query, current_user)
+		
+		@pending_friendships = current_user.friendships.friendships_pending
+		@requested_friendships = current_user.friendships.friendships_requested
+		@current_friendships = current_user.friendships.accepted_friendships
 
 	end
 
@@ -21,10 +25,10 @@ class FriendshipsController < ApplicationController
 
 		if Friendship.request(current_user, @new_friend)
 			flash[:notice] = "Friend request sent"
-			redirect_to root_url
+			redirect_to friendships_path
 		else
 			flash[:error] = "Unable to send friend request." #Add more specific error message
-			redirect_to root_url
+			redirect_to friendships_path
 		end
 	end
 	

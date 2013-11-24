@@ -52,6 +52,11 @@ hr{
 	font-weight:bold;
 }
 
+.search-results td *{
+	margin-top:2px;
+	margin-bottom:2px;
+}
+
 .hero-unit{
 	background-color:rgba(238,238,238,0.6)
 }

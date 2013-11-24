@@ -11,11 +11,11 @@
 					<b>Description:</b> <%= commitment.description %><br>
 					<b>Status: <%= commitment.status_string %></b>
 					<% if commitment.status == 0 %>
-						<%= button_to("Accept Commitment", update_commitment_path(commitment), method: :put) %>
+						<%= button_to("Accept Commitment", update_commitment_path(commitment), method: :put, class: "btn btn-success") %>
 					<% elsif commitment.status == 2%>
-						<%= button_to("Submit for Approval", update_commitment_path(commitment), method: :put) %>
+						<%= button_to("Submit for Approval", update_commitment_path(commitment), method: :put, class: "btn btn-success") %>
 					<% elsif commitment.status == 3%>
-							<p><i>Submitted waiting for approval</i></p>
+							<p><i>Submitted, waiting for approval.</i></p>
 					<% elsif commitment.status == 5%>
 						<p><i>Your commitment has been approved!</i></p>
 					<% else %>

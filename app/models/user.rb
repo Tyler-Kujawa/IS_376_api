@@ -53,9 +53,9 @@ class User < ActiveRecord::Base
   #   if no arg passed, returns all users
   def self.search(search, current_user)
     if search
-      find(:all, :conditions => ['user_name LIKE ?', "%#{search}%"])
+      find(:all, conditions: ['user_name LIKE ?', "%#{search}%"])
     else
-      find(:all, :conditions => (current_user ? ["id != ?", current_user.id] : []))
+      find(:all, conditions: (current_user ? ["id != ?", current_user.id] : []))
     end
   end
 	
