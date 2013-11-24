@@ -1,0 +1,125 @@
+<div class="container main-content">
+  <div class="row">
+
+    <div class="span3">
+      <div class="row">
+        <div class="well">
+          <h4 class="highlight-header text-center">Your Friends</h4>
+          <hr>
+          <ol>
+            <% if @current_friendships.empty? %>
+                <i>You have no friends :( </i>
+            <% else %>
+                <% @current_friendships.each do |friendship| %>
+                    <%= friendship.friend.email %>
+                    <%= friendship.friend.user_name %>
+                    <%= friendship.friendship_status_string %>
+                    <% if friendship.friendship_status == 0 %>
+                        <span class="highlight"><i>Be Patient</i></span>
+                    <% elsif friendship.friendship_status == 1 %>
+                        <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put, class: "btn btn-success" %>
+                    <% elsif friendship.friendship_status == 2 %>
+                        <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete, class: "btn btn-danger" %>
+                    <% end %>
+                <% end %>
+            <% end %>
+          </ol>
+        </div>
+
+
+        <div class="well">
+          <h4 class="highlight-header text-center">Pending Friend Requests</h4>
+          <hr>
+          <ol>
+            <% if @requested_friendships.empty? %>
+                <i>You have no pending friend requests :( </i>
+            <% else %>
+                <% @requested_friendships.each do |friendship| %>
+                    <%= friendship.friend.email %>
+                    <%= friendship.friend.user_name %>
+                    <%= friendship.friendship_status_string %>
+                    <% if friendship.friendship_status == 0 %>
+                        <span class="highlight"><i>Be Patient</i></span>
+                    <% elsif friendship.friendship_status == 1 %>
+                        <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put, class: "btn btn-success" %>
+                    <% elsif friendship.friendship_status == 2 %>
+                        <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete, class: "btn btn-danger" %>
+                    <% end %>
+                <% end %>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="span9" id="friend-search-body" ng-controller="Graph">
+      <div class="row">
+        <div class="span9">
+          <h3 class="highlight-header">Search Users</h3>
+
+          <p>
+            <%= form_tag "friendships", method: 'get' do %>
+                <%= text_field_tag :search %>
+                <%= submit_tag "Search", class: "btn btn-inverse btn-small"%>
+            <% end %>
+          </p>
+          <hr>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="span9">
+          <div class="user-search-results-body">
+            <% if @query.blank? %>
+                <h4 class="highlight-header text-center">All Users</h4>
+            <% else %>
+                <h4 class="highlight-header text-center">Results for "<%= @query %>"</h4>
+            <% end %>
+<<<<<<< HEAD
+					 
+					 <table class="search-results">
+							<% @results.each do |user| %>
+							<tr>
+								<td><b><%= user.user_name %></b></td>
+								<% @existing_friendship = Friendship.where(user_id: current_user.id, friend_id: user.id).first %>
+								<% if @pending_friendships.include?(@existing_friendship) %>
+									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
+									<td><i>Friendship Penidng</i></td>
+								<% elsif @requested_friendships.include?(@existing_friendship) %>
+									<td><%= button_to("Accept", friendships_path(user_id: user.id), class: "btn btn-mini btn-success") %></td>
+									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
+								<% elsif @current_friendships.include?(@existing_friendship)%>
+									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
+									<td><%= button_to "Remove Friend", delete_friendship_path(@existing_friendship), method: :delete, class: "btn btn-mini btn-danger" %></td>
+								<% else %>
+									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
+									<td><%= button_to("Add User", friendships_path(user_id: user.id), class: "btn btn-mini btn-success") %></td>
+								<% end %>
+								</tr>
+							<% end %>
+						</table>
+						<hr>
+=======
+
+            <ul class="media-list">
+              <% for user in @results %>
+                  <% profUrl = "users/" + user.id.to_s %>
+                  <li class="media">
+                    <a class="pull-left" href="<%= profUrl %>">
+                      <img class="media-object" src="<%= avatar_url(user) %>">
+                    </a>
+
+                    <div class="media-body">
+                      <h4><a href="profUrl"><%= user.user_name %></a></h4>
+                    </div>
+                  </li>
+              <% end %>
+            </ul>
+>>>>>>> 39796c56f339ecc0e0ac05c95e23de9515b80b5d
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
