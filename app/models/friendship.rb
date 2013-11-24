@@ -11,9 +11,9 @@ class Friendship < ActiveRecord::Base
 	
 	#methods for finding friendships at specific
 	#stages in the friendship process
-	scope :accepted_friendships, where(:friendship_status => ACCEPTED)
-	scope :friendships_requested, where(:friendship_status => REQUESTED)
-	scope :friendships_pending, where(:friendship_status => PENDING)
+	scope :accepted_friendships, where(friendship_status: ACCEPTED)
+	scope :friendships_requested, where(friendship_status: REQUESTED)
+	scope :friendships_pending, where(friendship_status: PENDING)
 	
 	before_save :is_lonely?
 	
@@ -45,6 +45,7 @@ class Friendship < ActiveRecord::Base
 	end
 	
 	class << self
+	
 	
 		def break_up(user, friend)
 			transaction do
