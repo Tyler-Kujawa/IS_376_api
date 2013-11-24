@@ -1,52 +1,56 @@
 <div class="row">
 
-	<div class="span3">
-		<div class="row">
-			<div class="well">
-				<h4 class="highlight-header text-center"><%= @user.user_name %>'s Dashboard</h4><hr>
-				<center><%= image_tag(avatar_url(@user), size: "150x150") %></center>
-				<hr>
-				<p class="rcScoreElement">Relation Capital Score:</p>
-				<h2 id="rcScore" class="rcScoreElement"><%= @user.r_c_score %></h2>
-				<p class="rcScoreElement"><%= link_to("More Info", "#") %></p>
-			</div>
-		</div>
+  <div class="span3">
+    <div class="row">
+      <div class="well">
+        <h4 class="highlight-header text-center"><%= @user.user_name %>'s Dashboard</h4>
+        <hr>
+        <center><%= image_tag(avatar_url(@user), size: "150x150") %></center>
+        <hr>
+        <p class="rcScoreElement">Relation Capital Score:</p>
 
-		<%= render "layouts/ongoing_commitments"%>
-		<%= render "layouts/ongoing_requests"%>
+        <h2 id="rcScore" class="rcScoreElement"><%= @user.r_c_score %></h2>
 
-		
-	</div>
-	
-	<div class="span9" id="graph-body" ng-controller="Graph">
-      <div class="row">
-            <div class="span9">
-                <h4 class="highlight-header">Commitment Data
-                    <span> | <a class="approvedCommit" href="#">Approved</a> |</span>
-                    <span><a class="fulfilledCommit" href="#">Fulfilled</a> |</span>
-                    <span><a class="requestedCommit" href="#">Requested</a> |</span>
-                </h4>
-                <hr>
-
-                <div class="user-graph">
-                </div>
-                <hr>
-                <h4 class="highlight-header">Additional Info</h4>
-                <p>something something shome</p>
-            </div>
+        <p class="rcScoreElement"><%= link_to("More Info", "#") %></p>
       </div>
-	</div>
-    <!-- MOVE TO OWN LIBRARY SECTION -->
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script>
-        $('document').ready(function(){
-            var AUTH_TOKEN = "<%=@user.authentication_token%>";
-            var uid = '' + <%= @user.id %>;
-            $.getJSON('/api/v1/users/' + uid, {authentication_token:AUTH_TOKEN}, function(json) {
-                $('.fulfilledCommit').addClass('active');
-                new UserGraph(json, $('.user-graph'), 4, 'Fulfilled');
-                new GraphBodyHandler(json, $('#graph-body'));
-            });
-        });
-    </script>
+    </div>
+
+    <%= render "layouts/ongoing_commitments" %>
+    <%= render "layouts/ongoing_requests" %>
+
+
+  </div>
+
+  <div class="span9" id="graph-body" ng-controller="Graph">
+    <div class="row">
+      <div class="span9">
+        <h3 class="highlight-header">Commitments </h3>
+
+        <h4 class="highlight-header"><span>  <a class="approvedCommit" href="#">Approved</a> |</span>
+        <span><a class="fulfilledCommit" href="#">Fulfilled</a> |</span>
+        <span><a class="requestedCommit" href="#">Requested</a> </span>   </h4>
+        <hr>
+
+        <div class="user-graph">
+        </div>
+        <hr>
+        <h3 class="highlight-header">Additional Info</h3>
+
+        <p>something something shome</p>
+      </div>
+    </div>
+  </div>
+  <!-- MOVE TO OWN LIBRARY SECTION -->
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script>
+      $('document').ready(function () {
+          var AUTH_TOKEN = "<%=@user.authentication_token%>";
+          var uid = '' + <%= @user.id %>;
+          $.getJSON('/api/v1/users/' + uid, {authentication_token: AUTH_TOKEN}, function (json) {
+              $('.fulfilledCommit').addClass('active');
+              new UserGraph(json, $('.user-graph'), 4, 'Fulfilled');
+              new GraphBodyHandler(json, $('#graph-body'));
+          });
+      });
+  </script>
 </div>

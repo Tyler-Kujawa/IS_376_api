@@ -3,6 +3,9 @@ class FriendshipsController < ApplicationController
 	def index
 		@friendships = current_user.friendships
 		@friends = current_user.friends
+    @query = params[:search]
+    @results = User.search(@query, current_user)
+
 	end
 
 	def show

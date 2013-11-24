@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="well">
-		<h4 class="highlight-header">Ongoing Commitments</h4><hr>
+		<h4 class="highlight-header text-center">Ongoing Commitments</h4><hr>
 		<ol>
-			<% if @requests.empty? %>
+			<% if @commitments.empty? or @commitments.count == 0 %>
 				<p>You have no ongoing requests.</p>
 			<% else %>
 				<% @commitments.each do |commitment| %>
@@ -21,8 +21,8 @@
 					<% else %>
 					<% end %>
 				</li>
-			<% end %>
-		<% end %>
+			    <% end %>
+		    <% end %>
 		</ol>
 		<hr>
 	</div>
