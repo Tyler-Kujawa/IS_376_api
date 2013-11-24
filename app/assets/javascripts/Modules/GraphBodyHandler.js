@@ -6,19 +6,23 @@ var GraphBodyHandler = function (json, el) {
     // Event handlers
     el.find('.fulfilledCommit').click(function () {
         clearGraph();
-        new UserGraph(json, $graphDiv, KEYS.FULFILLED);
+        $('.fulfilledCommit').addClass('active');
+        new UserGraph(json, $graphDiv, KEYS.FULFILLED, 'Fulfilled');
     });
     el.find('.approvedCommit').click(function () {
         clearGraph();
-        new UserGraph(json, $graphDiv, KEYS.APPROVED);
+        $('.approvedCommit').addClass('active');
+        new UserGraph(json, $graphDiv, KEYS.APPROVED, 'Approved');
     });
     el.find('.requestedCommit').click(function () {
         clearGraph();
-        new UserGraph(json, $graphDiv, KEYS.APPROVED);
+        $('.requestedCommit').addClass('active');
+        new UserGraph(json, $graphDiv, KEYS.APPROVED, 'Requested');
     });
 
     // Helper Functions
     var clearGraph = function () {
+        $('#graph-body h4.highlight-header a').removeClass('active');
         $graphDiv.empty();
     };
 };

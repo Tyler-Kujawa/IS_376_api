@@ -1,4 +1,4 @@
-var UserGraph = function(json, el, cStatus){
+var UserGraph = function(json, el, cStatus, title){
     var c = json.user.commitments;
     var monthArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (var i=0; i<c.length; i++) {
@@ -14,7 +14,7 @@ var UserGraph = function(json, el, cStatus){
             type: 'line'
         },
         title: {
-            text: 'Commitments by Month'
+            text: title
         },
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

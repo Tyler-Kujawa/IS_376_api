@@ -19,20 +19,22 @@
 	</div>
 	
 	<div class="span9" id="graph-body" ng-controller="Graph">
-		<div class="well">
-			<h4 class="highlight-header">Commitment Data
-                <span> | <a class="approvedCommit" href="#">Approved</a> |</span>
-                <span><a class="fulfilledCommit" href="#">Fulfilled</a> |</span>
-                <span><a class="requestedCommit" href="#">Requested</a> |</span>
-			</h4>
-			<hr>
-			
-			<div class="user-graph">
-			</div>
-			<hr>
-			<h4 class="highlight-header">Additional Info</h4>
-			<p>something something shome</p>
-		</div>
+      <div class="row">
+            <div class="span9">
+                <h4 class="highlight-header">Commitment Data
+                    <span> | <a class="approvedCommit" href="#">Approved</a> |</span>
+                    <span><a class="fulfilledCommit" href="#">Fulfilled</a> |</span>
+                    <span><a class="requestedCommit" href="#">Requested</a> |</span>
+                </h4>
+                <hr>
+
+                <div class="user-graph">
+                </div>
+                <hr>
+                <h4 class="highlight-header">Additional Info</h4>
+                <p>something something shome</p>
+            </div>
+      </div>
 	</div>
     <!-- MOVE TO OWN LIBRARY SECTION -->
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -41,7 +43,8 @@
             var AUTH_TOKEN = "<%=@user.authentication_token%>";
             var uid = '' + <%= @user.id %>;
             $.getJSON('/api/v1/users/' + uid, {authentication_token:AUTH_TOKEN}, function(json) {
-                new UserGraph(json, $('.user-graph'), 4);
+                $('.fulfilledCommit').addClass('active');
+                new UserGraph(json, $('.user-graph'), 4, 'Fulfilled');
                 new GraphBodyHandler(json, $('#graph-body'));
             });
         });
