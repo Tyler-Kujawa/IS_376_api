@@ -122,7 +122,7 @@ class Commitment < ActiveRecord::Base
 			@survey = Survey.new(user_id: @issuer.id, commitment_id: @commitment.id)
 			
 			#send an email to the issuer to remind them their survey has been completed
-			UserMailer.survey_email(@issuer).deliver
+			#UserMailer.survey_email(@issuer).deliver
 		
 			
 			transaction do
