@@ -5,6 +5,10 @@ hr{
 	margin-top: 80px;
 }
 
+.commitment-requests{
+	height:150px;
+}
+
 .highlight-text{
 	text-shadow: 1px 1px 1px #888;
 	font-weight:bold;
@@ -88,7 +92,7 @@ hr{
 	text-align:center;
 }
 
-#rcScore{
+.rcScoreHighlight{
 	color:#AC4200;
 }
 
