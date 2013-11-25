@@ -93,7 +93,8 @@
                       <h5>Score: <%= user.r_c_score %></h5>
                       <div class="btn-area">
                         <% if relation.blank? %>
-                            <button onclick="friendRequest(<%= user.id %>);" type="button" class="btn btn-primary">Add Friend</button>
+                            <!--<button onclick="friendRequest(<%= user.id %>);" type="button" class="btn btn-primary">Add Friend</button>-->
+														<%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
                         <% elsif relation.friendship_status_string == 'Accepted' %>
                             <button type="button" class="btn btn-warning">Remove</button>
                         <% elsif relation.friendship_status_string == 'Pending' %>
