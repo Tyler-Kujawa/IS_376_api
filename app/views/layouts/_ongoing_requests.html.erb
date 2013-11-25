@@ -31,6 +31,8 @@
       <% end %>
     </ol>
     <hr>
-    <%= link_to("Create commitment", new_commitment_path) %>
+    <% if current_user ==  @user %>
+        <%= link_to("Create commitment", new_commitment_path) %>
+    <% end %>
   </div>
 </div>

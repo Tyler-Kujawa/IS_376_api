@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 	
 	#landing page 
 	def dashboard
-		@user = current_user
 		respond_to do |format|
 			format.html
 		end

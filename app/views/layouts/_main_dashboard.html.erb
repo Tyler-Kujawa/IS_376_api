@@ -44,7 +44,7 @@
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script>
       $('document').ready(function () {
-          var AUTH_TOKEN = "<%=@user.authentication_token%>";
+          var AUTH_TOKEN = "<%=current_user.authentication_token%>";
           var uid = '' + <%= @user.id %>;
           $.getJSON('/api/v1/users/' + uid, {authentication_token: AUTH_TOKEN}, function (json) {
               $('.fulfilledCommit').addClass('active');

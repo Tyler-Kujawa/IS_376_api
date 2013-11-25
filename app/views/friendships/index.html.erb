@@ -7,19 +7,19 @@
           <h4 class="highlight-header text-center">Your Friends</h4>
           <hr>
           <ol>
-            <% if @current_friendships.empty? %>
+            <% if @friends.blank? %>
                 <i>You have no friends :( </i>
             <% else %>
-                <% @current_friendships.each do |friendship| %>
-                    <%= friendship.friend.email %>
-                    <%= friendship.friend.user_name %>
-                    <%= friendship.friendship_status_string %>
-                    <% if friendship.friendship_status == 0 %>
+                <% @friends.each do |friend| %>
+                    <%= friend.email %>
+                    <%= friend.user_name %>
+                    <%= friend.friendship_status_string %>
+                    <% if friend.friendship_status == 0 %>
                         <span class="highlight"><i>Be Patient</i></span>
-                    <% elsif friendship.friendship_status == 1 %>
-                        <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put, class: "btn btn-success" %>
-                    <% elsif friendship.friendship_status == 2 %>
-                        <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete, class: "btn btn-danger" %>
+                    <% elsif friend.friendship_status == 1 %>
+                        <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
+                    <% elsif friend.friendship_status == 2 %>
+                        <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete %>
                     <% end %>
                 <% end %>
             <% end %>
@@ -31,19 +31,19 @@
           <h4 class="highlight-header text-center">Pending Friend Requests</h4>
           <hr>
           <ol>
-            <% if @requested_friendships.empty? %>
-                <i>You have no pending friend requests :( </i>
+            <% if @friends.blank? %>
+                <i>You have no friends :( </i>
             <% else %>
-                <% @requested_friendships.each do |friendship| %>
-                    <%= friendship.friend.email %>
-                    <%= friendship.friend.user_name %>
-                    <%= friendship.friendship_status_string %>
-                    <% if friendship.friendship_status == 0 %>
+                <% @friends.each do |friend| %>
+                    <%= friend.email %>
+                    <%= friend.user_name %>
+                    <%= friend.friendship_status_string %>
+                    <% if friend.friendship_status == 0 %>
                         <span class="highlight"><i>Be Patient</i></span>
-                    <% elsif friendship.friendship_status == 1 %>
-                        <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put, class: "btn btn-success" %>
-                    <% elsif friendship.friendship_status == 2 %>
-                        <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete, class: "btn btn-danger" %>
+                    <% elsif friend.friendship_status == 1 %>
+                        <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
+                    <% elsif friend.friendship_status == 2 %>
+                        <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete %>
                     <% end %>
                 <% end %>
             <% end %>
@@ -58,44 +58,68 @@
           <h3 class="highlight-header">Search Users</h3>
 
           <p>
-            <%= form_tag "friendships", method: 'get' do %>
-                <%= text_field_tag :search %>
-                <%= submit_tag "Search", class: "btn btn-inverse btn-small"%>
+            <%= form_tag 'friendships', :method => 'get' do %>
+                <%= text_field_tag :search, params[:search], class: 'search-text' %>
+                <%= submit_tag "Search", :name => nil, class: 'btn btn-primary' %>
             <% end %>
           </p>
           <hr>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="span9">
           <div class="user-search-results-body">
             <% if @query.blank? %>
                 <h4 class="highlight-header text-center">All Users</h4>
             <% else %>
                 <h4 class="highlight-header text-center">Results for "<%= @query %>"</h4>
             <% end %>
-					 
-					 <table class="search-results">
-							<% @results.each do |user| %>
-							<tr>
-								<td><b><%= user.user_name %></b></td>
-								<% @existing_friendship = Friendship.where(user_id: current_user.id, friend_id: user.id).first %>
-								<% if @pending_friendships.include?(@existing_friendship) %>
-									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
-									<td><i>Friendship Penidng</i></td>
-								<% elsif @requested_friendships.include?(@existing_friendship) %>
-									<td><%= button_to("Accept", friendships_path(user_id: user.id), class: "btn btn-mini btn-success") %></td>
-									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
-								<% elsif @current_friendships.include?(@existing_friendship)%>
-									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
-									<td><%= button_to "Remove Friend", delete_friendship_path(@existing_friendship), method: :delete, class: "btn btn-mini btn-danger" %></td>
-								<% else %>
-									<td><%= link_to("profile", user_path(user), class: "btn btn-mini btn-inverse") %></td>
-									<td><%= button_to("Add User", friendships_path(user_id: user.id), class: "btn btn-mini btn-success") %></td>
-								<% end %>
-								</tr>
-							<% end %>
-						</table>
-						<hr>
+
+            <ul class="media-list result-list">
+              <% for user in @results %>
+                  <% profUrl = "users/" + user.id.to_s %>
+                  <% relation = @friendships.where(:friend_id => user.id) %>
+                  <li class="media">
+                    <a class="pull-left" href="<%= profUrl %>">
+                      <img class="media-object" src="<%= avatar_url(user) %>">
+                    </a>
+
+                    <div class="media-body">
+                      <h4><a href="<%=profUrl%>"><%= user.user_name %></a></h4>
+                      <h5>Score: <%= user.r_c_score %></h5>
+                      <div class="btn-area">
+                        <% if relation.blank? %>
+                            <button onclick="friendRequest(<%= user.id %>);" type="button" class="btn btn-primary">Add Friend</button>
+                        <% elsif relation.friendship_status_string == 'Accepted' %>
+                            <button type="button" class="btn btn-warning">Remove</button>
+                        <% elsif relation.friendship_status_string == 'Pending' %>
+                            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-user"></span>Accept</button>
+                        <% elsif relation.friendship_status_string == 'Requested' %>
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>Pending</button>
+                        <% end %>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+    var AUTH_TOKEN = "<%=current_user.authentication_token%>";
+    var friendRequest = function(uid) {
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/friendships",
+            data: { authentication_token: AUTH_TOKEN, requested_user_id: uid }
+        })
+                .done(function( msg ) {
+                    location.reload();
+                });
+    }
+</script>
