@@ -22,6 +22,7 @@ var UserGraph = function(json, el, cStatus, title){
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         yAxis: {
+            allowDecimals:false,
             title: {
                 text: 'Commitments'
             }
