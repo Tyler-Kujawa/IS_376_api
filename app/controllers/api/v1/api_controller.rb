@@ -14,7 +14,7 @@ class Api::V1::ApiController < ApplicationController
 	end
 	
 	def current_user 
-		@user = User.find_by_authentication_token(params[:auth_token])
+		@user = User.find_by_authentication_token(params[:authentication_token])
 	end
 
 end
