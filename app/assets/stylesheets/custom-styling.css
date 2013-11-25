@@ -166,6 +166,12 @@ hr{
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.05);
 }
 
+.result-list li .btn {
+    height: 25px;
+    width: 75px;
+    line-height: 0px;
+}
+
 input.search-text {
     margin-bottom: 0;
 }
