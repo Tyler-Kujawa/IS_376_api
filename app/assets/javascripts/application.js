@@ -11,5 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery-1.10.2
+//= require highcharts.src.js
 //= require bootstrap
 //= require_tree .
