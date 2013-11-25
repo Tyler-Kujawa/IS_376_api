@@ -21,6 +21,12 @@ class Api::V1::FriendshipsController < Api::V1::ApiController
 	end
 	
 	def destroy
+		@friendship = Friendship.find(params[:id])
+		if @friendship.break_up
+			render :json => {:message => 'Friendship successfully removed.'}, :status => 200
+		else
+			render :json => {:message => 'Could not remove friend.'}, :status => 400
+		end
 		#add remove
 	end
 end
