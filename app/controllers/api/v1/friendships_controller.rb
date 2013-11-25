@@ -13,11 +13,11 @@ class Api::V1::FriendshipsController < Api::V1::ApiController
 	
 	def update
 		@friendship = Friendship.find(params[:id])
-		if @friendship.accept
-			render :json => {:message => 'Friend Added.'}, :status => 200
-		else
-			render :json => {:message => 'Could not add friend.'}, :status => 400
-		end
+    if @friendship.accept
+      render :json => {:message => 'Friend Added.'}, :status => 200
+    else
+      render :json => {:message => 'Could not add friend.'}, :status => 400
+    end
 	end
 	
 	def destroy

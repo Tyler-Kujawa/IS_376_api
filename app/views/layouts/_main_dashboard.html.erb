@@ -12,6 +12,10 @@
         <h2 id="rcScore" class="rcScoreElement"><%= @user.r_c_score %></h2>
 
         <p class="rcScoreElement"><%= link_to("More Info", "#") %></p>
+        <hr>
+        <% if current_user !=  @user %>
+            <%= link_to("Send " + @user.user_name + " a request", new_commitment_path) %>
+        <% end %>
       </div>
     </div>
 

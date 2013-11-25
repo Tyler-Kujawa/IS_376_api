@@ -82,7 +82,7 @@
             <ul class="media-list result-list">
               <% for user in @results %>
                   <% profUrl = "users/" + user.id.to_s %>
-                  <% relation = Friendship.where(friend_id: user.id).first %>
+                  <% relation = Friendship.where(friend_id: user.id, user_id: current_user).first %>
                   <li class="media">
                     <a class="pull-left" href="<%= profUrl %>">
                       <img class="media-object" src="<%= avatar_url(user) %>">
@@ -93,14 +93,15 @@
                       <h5>Score: <%= user.r_c_score %></h5>
                       <div class="btn-area">
                         <% if relation.blank? %>
-                            <!--<button onclick="friendRequest(<%= user.id %>);" type="button" class="btn btn-primary">Add Friend</button>-->
-														<%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
+                            <button onclick="friendRequest(<%= user.id %>);" type="button" class="btn btn-primary">Add Friend</button>
                         <% elsif relation.friendship_status_string == 'Accepted' %>
-                            <button type="button" class="btn btn-warning">Remove</button>
+                            <button onclick="alterFriendship(<%= relation.id %>);" type="button" class="btn btn-warning">Remove</button>
                         <% elsif relation.friendship_status_string == 'Pending' %>
-                            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-user"></span>Accept</button>
+                            <button onclick="alterFriendship(<%= relation.id %>);" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-user"></span>Cancel</button>
                         <% elsif relation.friendship_status_string == 'Requested' %>
-                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>Pending</button>
+                            <button onclick="alterFriendship(<%= relation.id %>);" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>Accept</button>
+                            </hr>
+                            <button onclick="alterFriendship(<%= relation.id %>);" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span>Reject</button>
                         <% end %>
                       </div>
                     </div>
@@ -120,6 +121,26 @@
             type: "POST",
             url: "/api/v1/friendships",
             data: { authentication_token: AUTH_TOKEN, requested_user_id: uid }
+        })
+                .done(function( msg ) {
+                    location.reload();
+                });
+    }
+    var alterFriendship = function(fid) {
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/friendships/" + fid,
+            data: { authentication_token: AUTH_TOKEN}
+        })
+                .done(function( msg ) {
+                    location.reload();
+                });
+    }
+    var alterFriendship = function(fid) {
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/friendships/" + fid,
+            data: { authentication_token: AUTH_TOKEN}
         })
                 .done(function( msg ) {
                     location.reload();
