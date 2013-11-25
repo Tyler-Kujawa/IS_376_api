@@ -11,6 +11,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery-1.10.2
-//= require angular
 //= require bootstrap
 //= require_tree .
