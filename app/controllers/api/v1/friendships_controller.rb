@@ -5,7 +5,7 @@ class Api::V1::FriendshipsController < Api::V1::ApiController
 		@new_friend = User.find_by_id(params[:requested_user_id])
 		@friendship = Friendship.request(current_user, @new_friend)
 		if @friendship
-			render :json => {:message => ":Friend request sent to #{@new_friend.user_name}.", :current_user => current_user.user}, :status => 200
+			render :json => {:message => ":Friend request sent to #{@new_friend.user_name}.", :current_user => current_user.user_name}, :status => 200
 		else
 			render :json => {:message => 'Unable to send friend request.'}, :status => 200
 		end
