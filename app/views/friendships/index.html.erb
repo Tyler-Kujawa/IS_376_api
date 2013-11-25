@@ -7,18 +7,19 @@
           <h4 class="highlight-header text-center">Your Friends</h4>
           <hr>
           <ol>
-            <% if @friends.blank? %>
+            <% if @current_friendships.empty? %>
                 <i>You have no friends :( </i>
             <% else %>
-                <% @friends.each do |friend| %>
+                <% @current_friendships.each do |friendship| %>
+										<% friend = friendship.friend %>
                     <%= friend.email %>
                     <%= friend.user_name %>
-                    <%= friend.friendship_status_string %>
-                    <% if friend.friendship_status == 0 %>
+                    <%= friendship.friendship_status_string %>
+                    <% if friendship.friendship_status == 0 %>
                         <span class="highlight"><i>Be Patient</i></span>
-                    <% elsif friend.friendship_status == 1 %>
+                    <% elsif friendship.friendship_status == 1 %>
                         <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
-                    <% elsif friend.friendship_status == 2 %>
+                    <% elsif friendship.friendship_status == 2 %>
                         <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete %>
                     <% end %>
                 <% end %>
@@ -31,18 +32,19 @@
           <h4 class="highlight-header text-center">Pending Friend Requests</h4>
           <hr>
           <ol>
-            <% if @friends.blank? %>
-                <i>You have no friends :( </i>
+            <% if @requested_friendships.empty? %>
+                <i>You have no friend requests :( </i>
             <% else %>
-                <% @friends.each do |friend| %>
+                <% @requested_friendships.each do |friendship| %>
+										<% friend = friendship.friend %>
                     <%= friend.email %>
                     <%= friend.user_name %>
-                    <%= friend.friendship_status_string %>
-                    <% if friend.friendship_status == 0 %>
+                    <%= friendship.friendship_status_string %>
+                    <% if friendship.friendship_status == 0 %>
                         <span class="highlight"><i>Be Patient</i></span>
-                    <% elsif friend.friendship_status == 1 %>
+                    <% elsif friendship.friendship_status == 1 %>
                         <%= button_to "Accept Friend", update_friendship_path(friendship), method: :put %>
-                    <% elsif friend.friendship_status == 2 %>
+                    <% elsif friendship.friendship_status == 2 %>
                         <%= button_to "Remove Friend", delete_friendship_path(friendship), method: :delete %>
                     <% end %>
                 <% end %>
@@ -80,14 +82,14 @@
             <ul class="media-list result-list">
               <% for user in @results %>
                   <% profUrl = "users/" + user.id.to_s %>
-                  <% relation = @friendships.where(:friend_id => user.id) %>
+                  <% relation = Friendship.where(friend_id: user.id).first %>
                   <li class="media">
                     <a class="pull-left" href="<%= profUrl %>">
                       <img class="media-object" src="<%= avatar_url(user) %>">
                     </a>
 
                     <div class="media-body">
-                      <h4><a href="<%=profUrl%>"><%= user.user_name %></a></h4>
+                      <h4><a href="<%= profUrl %>"><%= user.user_name %></a></h4>
                       <h5>Score: <%= user.r_c_score %></h5>
                       <div class="btn-area">
                         <% if relation.blank? %>
