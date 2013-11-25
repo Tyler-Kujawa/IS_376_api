@@ -29,6 +29,9 @@ class Commitment < ActiveRecord::Base
 	scope :fulfilled_commitments, where(:status => FULFILLED)
 	scope :commitments_fulfilled_and_approved, where(:status => APPROVED)
 	
+	#validations
+	validates_presence_of :difficulty_score
+	
 	def status_string
 		if status == 0
 			"Pending"
@@ -128,7 +131,7 @@ class Commitment < ActiveRecord::Base
 			transaction do
 				update_one_side(id, APPROVED)
 				update_one_side(inverse_commitment_id, APPROVED)
-				@recipient.r_c_score += 1
+				@recipient.r_c_score += @commitment.difficulty_score
 				@recipient.save
 				@survey.save
 			end

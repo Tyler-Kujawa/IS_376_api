@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 	#		NOT that @user 's friends.
 	has_many :friendships, :dependent => :destroy
 	
+	has_many :surveys
+	
 	##	.friends() 
 	#		Calling friends on a @user returns an array of the users
 	#		these are the associations where:

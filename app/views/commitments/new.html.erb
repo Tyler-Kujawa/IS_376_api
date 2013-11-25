@@ -8,10 +8,17 @@
 				<tr>
 					<td><span class="highlight-text">Name:</span></td>
 					<td><span class="highlight-text">Send to:</span></td>
+					<td><span class="highlight-text">Difficulty:</span></td>
 				</tr>
 				<tr>
 					<td><%= f.text_field :name %></td>
 					<td>	<%= f.collection_select(:reciever_id, @friends, :id, :user_name) %></td>
+					<td><select name="commitment[difficulty_score]">
+								<option value="1" selected="selected">Easy</option>
+								<option value="3">Medium</option>
+								<option value="3">Hard</option>
+							<select>
+					</td>
 				</tr>
 				<tr>
 			</table>
