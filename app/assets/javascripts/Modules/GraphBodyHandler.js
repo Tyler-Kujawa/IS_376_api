@@ -13,9 +13,9 @@ var GraphBodyHandler = function (json, el) {
         $('.approvedCommit').addClass('active');
         new UserGraph(json, $graphDiv, KEYS.APPROVED, 'Approved');
     });
-    el.find('.requestedCommit').click(function () {
+    el.find('.pendingCommit').click(function () {
         clearGraph();
-        $('.requestedCommit').addClass('active');
+        $('.pendingCommit').addClass('active');
         new UserGraph(json, $graphDiv, KEYS.PENDING, 'Requested');
     });
 
