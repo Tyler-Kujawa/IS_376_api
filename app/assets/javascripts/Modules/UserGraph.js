@@ -1,6 +1,7 @@
 var UserGraph = function(json, el, cStatus, title){
     var c = json.user.commitments;
     console.log(c);
+    console.log(cStatus);
     var monthArr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (var i=0; i<c.length; i++) {
         // IF: commitment was fulfilled
